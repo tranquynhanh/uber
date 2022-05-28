@@ -100,7 +100,7 @@ function renderRowDistanceDetails(carType, arrayDistance, arrayPrice, tblBody) {
 }
 
 function renderRowWaitTime(waitTime, waitCost,tblBody) {
-    var waitCost = waitTimeCal(waitTime, waitCost);
+    var waitCostTotal = waitTimeCal(waitTime, waitCost);
     var trWaitTime = document.createElement("tr")
 
     var tdMinuteTitle = document.createElement("td")
@@ -111,7 +111,11 @@ function renderRowWaitTime(waitTime, waitCost,tblBody) {
     tdMinuteTitle.innerHTML = "Thời gian chờ";
     tdMinute.innerHTML = waitTime + " phút";
     tdPriceEach.innerHTML = waitCost + " vnd";
-    tdAmount.innerHTML = Math.round(waitTime/3.0) * waitCost + " vnđ";
+    if (waitTime > 2) {
+        tdAmount.innerHTML = waitCostTotal + " vnđ";
+    } else {
+        tdAmount.innerHTML = 0;
+    }
 
     trWaitTime.appendChild(tdMinuteTitle)
     trWaitTime.appendChild(tdMinute)
